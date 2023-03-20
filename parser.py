@@ -14,7 +14,7 @@ regex = r'^(\w{3} \d{1,2} \d{2}:\d{2}:\d{2}) (\w+) (\w+)(\[\d+\])?: (.*)$'
 conn = mysql.connector.connect(**db_config)
 cursor = conn.cursor()
 
-with open('./log.log') as f:
+with open('./auth.log') as f:
     for line in f:
         match = re.search(regex, line)
         if match:

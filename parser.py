@@ -20,8 +20,8 @@ with open('./log.log') as f:
         if match:
             date_time = datetime.strptime(
                 ('2022 ' + match.group(1)),
-                "%Y %b %d %H:%M:%S"
-            ).strftime("%Y-%m-%d %H:%M:%S")
+                '%Y %b %d %H:%M:%S'
+            ).strftime('%Y-%m-%d %H:%M:%S')
             hostname = match.group(2)
             appname = match.group(3)
             appcode = '' if match.group(4) is None else match.group(4)

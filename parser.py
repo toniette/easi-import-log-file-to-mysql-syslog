@@ -3,10 +3,10 @@ import mysql.connector
 from datetime import datetime
 
 db_config = {
-    'user': 'root',
+    'user': 'user',
     'password': 'password',
-    'host': '192.168.1.102',
-    'database': 'Syslog'
+    'host': 'host',
+    'database': 'database'
 }
 
 regex = r'^(\w{3} \d{1,2} \d{2}:\d{2}:\d{2}) (\w+) (\w+)(\[\d+\])?: (.*)$'

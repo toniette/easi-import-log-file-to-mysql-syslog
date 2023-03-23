@@ -7,10 +7,10 @@ log_file = './auth.log'
 regex = r'^(\w{3}\s{1,2}\d{1,2}\s{1}\d{2}:\d{2}:\d{2})\s{1}(\w+)\s{1}(\w+)(\[\d+\])?:\s{1}(.*)$'
 
 db_config = {
-    'user': 'root',
+    'user': 'user',
     'password': 'password',
-    'host': '192.168.1.105',
-    'database': 'Syslog'
+    'host': 'host',
+    'database': 'database'
 }
 conn = mysql.connector.connect(**db_config)
 cursor = conn.cursor()

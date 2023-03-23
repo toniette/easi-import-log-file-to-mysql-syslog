@@ -31,16 +31,15 @@ def get_parsed_sys_log_tag(appname, pid):
 with open(log_file) as f:
     for line in tqdm(f.readlines()):
         match = re.search(regex, line)
-        if match:
-            query = "INSERT INTO SystemEvents(ReceivedAt, FromHost, SysLogTag, Message) " \
-                    "VALUES(%(ReceivedAt)s, %(FromHost)s, %(SysLogTag)s, %(Message)s)"
-            params = {
-                'ReceivedAt': get_parsed_date(match.group(1)),
-                'FromHost': strip(match.group(2)),
-                'SysLogTag': get_parsed_sys_log_tag(match.group(3), match.group(4)),
-                'Message': strip(match.group(5))
-            }
-            cursor.execute(query, params)
-            conn.commit()
+        query = "INSERT INTO SystemEvents(ReceivedAt, FromHost, SysLogTag, Message) " \
+                "VALUES(%(ReceivedAt)s, %(FromHost)s, %(SysLogTag)s, %(Message)s)"
+        params = {
+            'ReceivedAt': get_parsed_date(match.group(1)),
+            'FromHost': strip(match.group(2)),
+            'SysLogTag': get_parsed_sys_log_tag(match.group(3), match.group(4)),
+            'Message': strip(match.group(5))
+        }
+        cursor.execute(query, params)
+        conn.commit()
 cursor.close()
 conn.close()

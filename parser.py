@@ -3,7 +3,7 @@ import mysql.connector
 from datetime import datetime
 from tqdm import tqdm
 
-log_file = './auth.log'
+log_file = 'easi-import-log-file-to-mysql-syslog/auth.log'
 regex = r'^(\w{3}\s{1,2}\d{1,2}\s{1}\d{2}:\d{2}:\d{2})\s{1}(\w+)\s{1}(\w+)(\[\d+\])?:\s{1}(.*)$'
 
 db_config = {

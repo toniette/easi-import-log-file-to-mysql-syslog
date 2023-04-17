@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 DEBIAN_FRONTEND=noninteractive apt-get install -y debconf-utils
 debconf-set-selections << 'END'
 rsyslog-mysql	rsyslog-mysql/mysql/admin-pass	password

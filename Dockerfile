@@ -6,25 +6,18 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update --fix-missing
 RUN apt-get install apt-utils mariadb-server python3 python3-venv debconf-utils pip git rsyslog -y
 
-RUN service mariadb start  \
-    && mariadb -u root -p -t -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; FLUSH privileges;"
-
-RUN git clone https://github.com/toniette/easi-import-log-file-to-mysql-syslog.git
-
-WORKDIR /easi-import-log-file-to-mysql-syslog
-
-RUN chmod +x setup.sh
-RUN ./setup.sh
-
-RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install --user virtualenv
-RUN python3 -m venv env
-RUN source env/bin/activate
-RUN pip install -r requirements.txt
-
-RUN python3 parser.py
-
-RUN ip a s
-RUN logger "Hello World!"
-RUN echo 'SELECT ReceivedAt, Message FROM Syslog.SystemEvents ORDER BY ReceivedAt DESC LIMIT 10;' | mariadb -u root -p=password -t
-RUN tune2fs -l /dev/sda1 | grep 'UUID|Created'
+ENTRYPOINT service mariadb start \
+    && git clone https://github.com/toniette/easi-import-log-file-to-mysql-syslog.git \
+    && chmod +x easi-import-log-file-to-mysql-syslog/setup.sh \
+    && easi-import-log-file-to-mysql-syslog/setup.sh \
+    && mariadb -u root -t -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; FLUSH privileges;" \
+    && python3 -m pip install --upgrade pip \
+    && python3 -m pip install --user virtualenv \
+    && python3 -m venv easi-import-log-file-to-mysql-syslog/env \
+    && source easi-import-log-file-to-mysql-syslog/env/bin/activate \
+    && pip install -r easi-import-log-file-to-mysql-syslog/requirements.txt \
+    && python3 easi-import-log-file-to-mysql-syslog/parser.py \
+    && ip a s \
+    && logger "Hello World!" \
+    && echo 'SELECT ReceivedAt, Message FROM Syslog.SystemEvents ORDER BY ReceivedAt DESC LIMIT 10;' | mariadb -u root -p -t \
+    && tune2fs -l /dev/sda1 | grep 'UUID|Created'

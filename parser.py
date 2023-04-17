@@ -9,7 +9,7 @@ regex = r'^(\w{3}\s{1,2}\d{1,2}\s{1}\d{2}:\d{2}:\d{2})\s{1}(\w+)\s{1}(\w+)(\[\d+
 db_config = {
     'user': 'root',
     'password': 'password',
-    'host': 'localhost',
+    'host': '127.0.0.1',
     'database': 'Syslog'
 }
 conn = mysql.connector.connect(**db_config)
